@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Minha To-Do List</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <main class ="container">
+        <header class="cabecalho">
+            <h1>Minha To-Do-List</h1>
+            <p>Organize suas tarefas e acompanhe seu progresso.</p>
+        </header>
+
+    <section class="adicionar tarefa">
+        <input
+            type="text"
+            id="campo-tarefa"
+            placeholder = "Digite uma nova tarefa..."
+        >
+
+        <button id="botao-adicionar">Adcionar</button>
+    </section>
+
+    <section class="lista-tarefas">
+        <h2>Minhas tarefas</h2>
+
+        <ul id="lista-tarefas">
+            <li class="tarefa-vazia">
+                Suas tarefas aparecerão aqui.
+            </li>
+        </ul>
+
+    </section>
+
+
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,128 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f5f9;
+    color: #1e293b;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 650px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.cabecalho {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cabecalho h1 {
+    color: #2563eb;
+    margin-bottom: 10px;
+}
+
+.cabecalho p {
+    color: #64748b;
+    line-height: 1.5;
+}
+
+.adicionar-tarefa {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+#campo-tarefa {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    background-color: #2563eb;
+    color: white;
+    padding: 12px 18px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+.lista-tarefas h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+#lista-tarefas {
+    list-style: none;
+}
+
+#lista-tarefas li {
+    padding: 14px;
+    margin-bottom: 10px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.tarefa-vazia {
+    color: #64748b;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    .adicionar-tarefa {
+        flex-direction: column;
+    }
+}
+
+/* Organiza os elementos de cada tarefa */
+#lista-tarefas li:not(.tarefa-vazia) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* O texto ocupa o espaço disponível */
+#lista-tarefas li span {
+    flex: 1;
+    overflow-wrap: anywhere;
+}
+
+/* Aparência de uma tarefa concluída */
+#lista-tarefas li.concluida span {
+    text-decoration: line-through;
+    color: #94a3b8;
+}
+
+/* Botão de excluir */
+.botao-excluir {
+    background-color: #dc2626;
+    padding: 8px 12px;
+}
+
+.botao-excluir:hover {
+    background-color: #b91c1c;
+}
