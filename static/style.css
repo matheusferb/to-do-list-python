@@ -14,6 +14,8 @@
     --vermelho: #fb7185;
 }
 
+/* Configurações gerais */
+
 * {
     margin: 0;
     padding: 0;
@@ -84,12 +86,6 @@ body {
     color: #777d92;
 }
 
-#campo-tarefa:focus-visible {
-    outline: 2px solid var(--roxo);
-    outline-offset: -2px;
-    border-radius: 6px;
-}
-
 #botao-adicionar {
     padding: 13px 19px;
     background: var(--roxo);
@@ -108,117 +104,7 @@ body {
     transform: translateY(-1px);
 }
 
-/* Lista */
-
-.lista-tarefas {
-    padding: 25px;
-    background: var(--cartao);
-    border: 1px solid var(--borda);
-    border-radius: 18px;
-}
-
-.lista-tarefas h2 {
-    margin-bottom: 20px;
-    font-size: 17px;
-    font-weight: 700;
-}
-
-#lista-tarefas {
-    list-style: none;
-}
-
-#lista-tarefas li {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 17px 0;
-    border-bottom: 1px solid var(--borda);
-}
-
-#lista-tarefas li:last-child {
-    border-bottom: none;
-}
-
-#lista-tarefas li span {
-    flex: 1;
-    min-width: 0;
-    color: var(--texto);
-    font-size: 14px;
-    line-height: 1.6;
-    overflow-wrap: anywhere;
-}
-
-#lista-tarefas li.concluida span {
-    color: var(--texto-secundario);
-    text-decoration: line-through;
-}
-
-#lista-tarefas li.tarefa-vazia {
-    justify-content: center;
-    padding: 35px 10px;
-    color: var(--texto-secundario); 
-    font-size: 14px;
-    text-align: center;
-}
-
-/* Botões de ação criados pelo JavaScript */
-
-#lista-tarefas li button {
-    flex-shrink: 0;
-    padding: 8px 11px;
-    border: 1px solid var(--borda);
-    border-radius: 8px;
-    background: var(--cartao-hover);
-    color: var(--texto);
-    font-family: inherit;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-#lista-tarefas li button:hover {
-    border-color: var(--roxo);
-}
-
-#lista-tarefas li button:first-of-type {
-    color: var(--verde);
-}
-
-#lista-tarefas li button:last-of-type {
-    color: var(--vermelho);
-}
-
-/* Celulares */
-
-@media (max-width: 480px) {
-    body {
-        padding: 45px 15px;
-    }
-
-    .adicionar.tarefa {
-        gap: 5px;
-        padding: 8px;
-    }
-
-    #campo-tarefa {
-        font-size: 13px;
-    }
-
-    #botao-adicionar {
-        padding: 12px;
-        font-size: 12px;
-    }
-
-    .lista-tarefas {
-        padding: 18px;
-    }
-
-    #lista-tarefas li {
-        flex-wrap: wrap;
-    }
-    
-/* ===== Painel de progresso ===== */
+/* Painel de progresso */
 
 .painel-progresso {
     background: var(--cartao);
@@ -292,7 +178,113 @@ body {
     color: var(--texto);
 }
 
-/* ===== Filtros ===== */
+/* Lista de tarefas */
+
+.lista-tarefas {
+    padding: 25px;
+    background: var(--cartao);
+    border: 1px solid var(--borda);
+    border-radius: 18px;
+}
+
+.lista-tarefas h2 {
+    margin-bottom: 20px;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+#lista-tarefas {
+    list-style: none;
+}
+
+#lista-tarefas li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 17px 0;
+    border-bottom: 1px solid var(--borda);
+}
+
+#lista-tarefas li:last-child {
+    border-bottom: none;
+}
+
+#lista-tarefas li span {
+    flex: 1;
+    min-width: 0;
+    color: var(--texto);
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+#lista-tarefas li.concluida span {
+    color: var(--texto-secundario);
+    text-decoration: line-through;
+}
+
+#lista-tarefas li.tarefa-vazia {
+    justify-content: center;
+    padding: 35px 10px;
+    color: var(--texto-secundario);
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Botões de ação */
+
+#lista-tarefas li button {
+    flex-shrink: 0;
+    padding: 8px 11px;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    background: var(--cartao-hover);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#lista-tarefas li button:hover {
+    border-color: var(--roxo);
+}
+
+#lista-tarefas li button:first-of-type {
+    color: var(--verde);
+}
+
+#lista-tarefas li button:last-of-type {
+    color: var(--vermelho);
+}
+
+/* Campo de pesquisa */
+
+#campo-pesquisa {
+    width: 100%;
+    padding: 13px 16px;
+    margin: 0 0 20px;
+    background: var(--cartao-hover);
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    color: var(--texto);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: 0.2s;
+}
+
+#campo-pesquisa::placeholder {
+    color: var(--texto-secundario);
+}
+
+#campo-pesquisa:focus {
+    border-color: var(--roxo);
+    box-shadow: 0 0 0 3px rgba(117, 101, 245, 0.15);
+}
+
+/* Filtros */
 
 .filtros {
     display: flex;
@@ -325,9 +317,35 @@ body {
     color: white;
 }
 
-/* ===== Responsividade ===== */
+/* Responsividade para celulares */
 
 @media (max-width: 480px) {
+    body {
+        padding: 45px 15px;
+    }
+
+    .adicionar.tarefa {
+        gap: 5px;
+        padding: 8px;
+    }
+
+    #campo-tarefa {
+        font-size: 13px;
+    }
+
+    #botao-adicionar {
+        padding: 12px;
+        font-size: 12px;
+    }
+
+    .lista-tarefas {
+        padding: 18px;
+    }
+
+    #lista-tarefas li {
+        flex-wrap: wrap;
+    }
+
     .painel-progresso {
         padding: 18px;
     }
@@ -356,6 +374,4 @@ body {
         flex: 1;
         padding: 9px 7px;
     }
-}
-
 }

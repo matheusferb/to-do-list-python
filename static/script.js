@@ -3,6 +3,7 @@
 const campoTarefa = document.getElementById("campo-tarefa");
 const botaoAdicionar = document.getElementById("botao-adicionar");
 const listaTarefas = document.getElementById("lista-tarefas");
+const campoPesquisa = document.getElementById("campo-pesquisa");
 
 // Elementos do progresso
 const contadorTotal = document.getElementById("contador-total");
@@ -73,6 +74,7 @@ function atualizarContadores() {
 function mostrarTarefas() {
     listaTarefas.innerHTML = "";
 
+    // Aplicar o filtro selecionado
     let tarefasFiltradas = tarefas;
 
     if (filtroAtual === "pendentes") {
@@ -86,6 +88,13 @@ function mostrarTarefas() {
             tarefa => tarefa.concluida
         );
     }
+
+    // Aplicar a pesquisa
+    const pesquisa = campoPesquisa.value.toLowerCase().trim();
+
+    tarefasFiltradas = tarefasFiltradas.filter(
+        tarefa => tarefa.texto.toLowerCase().includes(pesquisa)
+    );
 
     if (tarefasFiltradas.length === 0) {
         mostrarListaVazia();
@@ -343,3 +352,7 @@ campoTarefa.addEventListener("keydown", function (evento) {
 
 // Carregar tarefas ao abrir o site
 carregarTarefas();
+
+campoPesquisa.addEventListener("input", function () {
+    mostrarTarefas();
+});
