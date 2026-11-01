@@ -4,6 +4,7 @@ const campoTarefa = document.getElementById("campo-tarefa");
 const botaoAdicionar = document.getElementById("botao-adicionar");
 const listaTarefas = document.getElementById("lista-tarefas");
 const campoPesquisa = document.getElementById("campo-pesquisa");
+const campoPrioridade = document.getElementById("campo-prioridade");
 
 // Elementos do progresso
 const contadorTotal = document.getElementById("contador-total");
@@ -125,6 +126,16 @@ function criarElementoTarefa(tarefa) {
     const texto = document.createElement("span");
 
     texto.textContent = tarefa.texto;
+
+    const etiquetaPrioridade = document.createElement("span");
+
+    etiquetaPrioridade.textContent =
+        "Prioridade: " + tarefa.prioridade;
+
+    etiquetaPrioridade.classList.add(
+        "prioridade",
+        tarefa.prioridade
+    );
 
     const botaoExcluir = document.createElement("button");
 
@@ -258,6 +269,7 @@ botaoEditar.addEventListener("click", async function () {
     // Adicionar elementos ao item
     item.appendChild(checkbox);
     item.appendChild(texto);
+    item.appendChild(etiquetaPrioridade);
     item.appendChild(botaoEditar);
     item.appendChild(botaoExcluir);
 
@@ -268,6 +280,7 @@ botaoEditar.addEventListener("click", async function () {
 // Adicionar uma nova tarefa
 async function adicionarTarefa() {
     const texto = campoTarefa.value.trim();
+    const prioridade = campoPrioridade.value;
 
     if (texto === "") {
         alert("Digite uma tarefa antes de adicionar!");
@@ -280,7 +293,10 @@ async function adicionarTarefa() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ texto: texto })
+            body: JSON.stringify({ 
+                texto: texto,
+                prioridade: prioridade
+            })
         });
 
         const dados = await resposta.json();
@@ -292,6 +308,7 @@ async function adicionarTarefa() {
         tarefas.push(dados);
 
         campoTarefa.value = "";
+        campoPrioridade.value = "media";
         campoTarefa.focus();
 
         atualizarTela();

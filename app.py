@@ -22,9 +22,22 @@ def criar_banco():
             CREATE TABLE IF NOT EXISTS tarefas (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 texto TEXT NOT NULL,
-                concluida INTEGER NOT NULL DEFAULT 0
+                concluida INTEGER NOT NULL DEFAULT 0,
+                prioridade TEXT NOT NULL DEFAULT 'media'
             )
         """)
+
+        colunas = conexao.execute(
+            "PRAGMA table_info(tarefas)"
+        ).fetchall()
+
+        nomes_colunas = [coluna["name"] for coluna in colunas]
+
+        if "prioridade" not in nomes_colunas:
+            conexao.execute("""
+                ALTER TABLE tarefas
+                ADD COLUMN prioridade TEXT NOT NULL DEFAULT 'media'
+            """)
 
 
 # Página principal
@@ -47,7 +60,8 @@ def listar_tarefas():
         tarefas.append({
             "id": linha["id"],
             "texto": linha["texto"],
-            "concluida": bool(linha["concluida"])
+            "concluida": bool(linha["concluida"]),
+            "prioridade": linha["prioridade"]
         })
 
     return jsonify(tarefas)
@@ -63,18 +77,25 @@ def adicionar_tarefa():
         return jsonify({"erro": "Digite uma tarefa válida."}), 400
 
     with conectar_banco() as conexao:
-        cursor = conexao.execute(
-            "INSERT INTO tarefas (texto) VALUES (?)",
-            (texto.strip(),)
-        )
-
-        tarefa_id = cursor.lastrowid
-
+  
+          prioridade = dados.get("prioridade", "media")
+  
+          if prioridade not in ["baixa", "media", "alta"]:
+              return jsonify({"erro": "Prioridade inválida."}), 400
+  
+          cursor = conexao.execute(
+              "INSERT INTO tarefas (texto,prioridade) VALUES (?, ?)",
+              (texto.strip(),prioridade)
+          )
+  
+          tarefa_id = cursor.lastrowid
+  
     return jsonify({
         "id": tarefa_id,
         "texto": texto.strip(),
-        "concluida": False
-    }), 201
+        "concluida": False,
+        "prioridade": prioridade
+    }),201
 
 
 
@@ -96,6 +117,7 @@ def atualizar_tarefa(tarefa_id):
 
         texto = dados.get("texto", linha["texto"])
         concluida = dados.get("concluida", bool(linha["concluida"]))
+        prioridade = dados.get("prioridade", linha["prioridade"])
 
         # Validar o texto
         if not isinstance(texto, str) or not texto.strip():
@@ -105,20 +127,24 @@ def atualizar_tarefa(tarefa_id):
         if not isinstance(concluida, bool):
             return jsonify({"erro": "Estado inválido."}), 400
 
+        if prioridade not in ["baixa", "media", "alta"]:
+            return jsonify({"erro": "Prioridade inválida."}), 400
+
         # Atualizar no banco de dados
         conexao.execute(
             """
             UPDATE tarefas
-            SET texto = ?, concluida = ?
+            SET texto = ?, concluida = ?, prioridade = ?
             WHERE id = ?
             """,
-            (texto.strip(), int(concluida), tarefa_id)
+            (texto.strip(), int(concluida), prioridade, tarefa_id)
         )
 
     return jsonify({
         "id": tarefa_id,
         "texto": texto.strip(),
-        "concluida": concluida
+        "concluida": concluida,
+        "prioridade": prioridade
     })
 
 
