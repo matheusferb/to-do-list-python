@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,36 +8,85 @@
     <title>Minha To-Do List</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
 </head>
 <body>
-    <main class ="container">
+
+    <main class="container">
+
         <header class="cabecalho">
-            <h1>Minha To-Do-List</h1>
+            <h1>Minha To-Do List</h1>
             <p>Organize suas tarefas e acompanhe seu progresso.</p>
         </header>
 
-    <section class="adicionar tarefa">
-        <input
-            type="text"
-            id="campo-tarefa"
-            placeholder = "Digite uma nova tarefa..."
-        >
+        <!-- Campo para adicionar tarefas -->
+        <section class="adicionar tarefa">
+            <input
+                type="text"
+                id="campo-tarefa"
+                placeholder="Digite uma nova tarefa..."
+            >
 
-        <button id="botao-adicionar">Adicionar</button>
-    </section>
+            <button id="botao-adicionar">Adicionar</button>
+        </section>
 
-    <section class="lista-tarefas">
-        <h2>Minhas tarefas</h2>
+        <!-- Resumo do progresso -->
+        <section class="painel-progresso">
 
-        <ul id="lista-tarefas">
-            <li class="tarefa-vazia">
-                Suas tarefas aparecerão aqui.
-            </li>
-        </ul>
+            <div class="progresso-cabecalho">
+                <h2>Seu progresso</h2>
+                <span id="texto-progresso">0%</span>
+            </div>
 
-    </section>
+            <div class="barra-progresso">
+                <div id="progresso-preenchido"></div>
+            </div>
 
+            <div class="contadores">
+                <div class="contador">
+                    <span>Total</span>
+                    <strong id="contador-total">0</strong>
+                </div>
+
+                <div class="contador">
+                    <span>Pendentes</span>
+                    <strong id="contador-pendentes">0</strong>
+                </div>
+
+                <div class="contador">
+                    <span>Concluídas</span>
+                    <strong id="contador-concluidas">0</strong>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Lista de tarefas -->
+        <section class="lista-tarefas">
+
+            <h2>Minhas tarefas</h2>
+
+            <!-- Filtros -->
+            <div class="filtros">
+                <button class="filtro ativo" data-filtro="todas">
+                    Todas
+                </button>
+
+                <button class="filtro" data-filtro="pendentes">
+                    Pendentes
+                </button>
+
+                <button class="filtro" data-filtro="concluidas">
+                    Concluídas
+                </button>
+            </div>
+
+            <ul id="lista-tarefas">
+                <li class="tarefa-vazia">
+                    Suas tarefas aparecerão aqui.
+                </li>
+            </ul>
+
+        </section>
 
     </main>
 

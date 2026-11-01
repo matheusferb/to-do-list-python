@@ -156,7 +156,7 @@ body {
 #lista-tarefas li.tarefa-vazia {
     justify-content: center;
     padding: 35px 10px;
-    color: var(--texto-secundario);
+    color: var(--texto-secundario); 
     font-size: 14px;
     text-align: center;
 }
@@ -217,4 +217,145 @@ body {
     #lista-tarefas li {
         flex-wrap: wrap;
     }
+    
+/* ===== Painel de progresso ===== */
+
+.painel-progresso {
+    background: var(--cartao);
+    border: 1px solid var(--borda);
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 25px;
+}
+
+.progresso-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.progresso-cabecalho h2 {
+    font-size: 16px;
+}
+
+#texto-progresso {
+    color: var(--roxo);
+    font-weight: 700;
+    font-size: 18px;
+}
+
+/* Barra de progresso */
+
+.barra-progresso {
+    width: 100%;
+    height: 9px;
+    background: var(--borda);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 22px;
+}
+
+#progresso-preenchido {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #7565f5, #a99cff);
+    border-radius: 20px;
+    transition: width 0.4s ease;
+}
+
+/* Contadores */
+
+.contadores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.contador {
+    background: var(--cartao-hover);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+}
+
+.contador span {
+    display: block;
+    color: var(--texto-secundario);
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.contador strong {
+    font-size: 23px;
+    color: var(--texto);
+}
+
+/* ===== Filtros ===== */
+
+.filtros {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--borda);
+}
+
+.filtro {
+    padding: 9px 14px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: var(--cartao-hover);
+    color: var(--texto-secundario);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.filtro:hover {
+    color: var(--texto);
+    border-color: var(--borda);
+}
+
+.filtro.ativo {
+    background: var(--roxo);
+    color: white;
+}
+
+/* ===== Responsividade ===== */
+
+@media (max-width: 480px) {
+    .painel-progresso {
+        padding: 18px;
+    }
+
+    .contadores {
+        gap: 7px;
+    }
+
+    .contador {
+        padding: 12px 5px;
+    }
+
+    .contador span {
+        font-size: 10px;
+    }
+
+    .contador strong {
+        font-size: 20px;
+    }
+
+    .filtros {
+        flex-wrap: wrap;
+    }
+
+    .filtro {
+        flex: 1;
+        padding: 9px 7px;
+    }
+}
+
 }

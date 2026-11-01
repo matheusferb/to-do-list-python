@@ -77,33 +77,50 @@ def adicionar_tarefa():
     }), 201
 
 
-# Concluir ou reabrir uma tarefa
+
+# Concluir, reabrir ou editar uma tarefa
 @app.route("/api/tarefas/<int:tarefa_id>", methods=["PATCH"])
 def atualizar_tarefa(tarefa_id):
     dados = request.get_json(silent=True) or {}
 
-    if not isinstance(dados.get("concluida"), bool):
-        return jsonify({"erro": "Estado inválido."}), 400
-
     with conectar_banco() as conexao:
-        cursor = conexao.execute(
-            "UPDATE tarefas SET concluida = ? WHERE id = ?",
-            (int(dados["concluida"]), tarefa_id)
-        )
 
-        if cursor.rowcount == 0:
-            return jsonify({"erro": "Tarefa não encontrada."}), 404
-
+        # Verificar se a tarefa existe
         linha = conexao.execute(
             "SELECT * FROM tarefas WHERE id = ?",
             (tarefa_id,)
         ).fetchone()
 
+        if linha is None:
+            return jsonify({"erro": "Tarefa não encontrada."}), 404
+
+        texto = dados.get("texto", linha["texto"])
+        concluida = dados.get("concluida", bool(linha["concluida"]))
+
+        # Validar o texto
+        if not isinstance(texto, str) or not texto.strip():
+            return jsonify({"erro": "Digite um texto válido."}), 400
+
+        # Validar o estado de conclusão
+        if not isinstance(concluida, bool):
+            return jsonify({"erro": "Estado inválido."}), 400
+
+        # Atualizar no banco de dados
+        conexao.execute(
+            """
+            UPDATE tarefas
+            SET texto = ?, concluida = ?
+            WHERE id = ?
+            """,
+            (texto.strip(), int(concluida), tarefa_id)
+        )
+
     return jsonify({
-        "id": linha["id"],
-        "texto": linha["texto"],
-        "concluida": bool(linha["concluida"])
+        "id": tarefa_id,
+        "texto": texto.strip(),
+        "concluida": concluida
     })
+
 
 
 # Excluir uma tarefa
