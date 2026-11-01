@@ -1,4 +1,19 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --fundo: #0d0f17;
+    --cartao: #151824;
+    --cartao-hover: #1b1f2e;
+    --borda: #292d3e;
+    --texto: #f1f2f9;
+    --texto-secundario: #9298ad;
+    --roxo: #8b7cff;
+    --roxo-hover: #7565f5;
+    --verde: #4ade80;
+    --vermelho: #fb7185;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,69 +21,106 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f1f5f9;
-    color: #1e293b;
     min-height: 100vh;
-    padding: 40px 20px;
+    padding: 80px 20px;
+    background:
+        radial-gradient(ellipse at 50% 0%, #242044 0%, transparent 50%),
+        var(--fundo);
+    color: var(--texto);
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 .container {
-    max-width: 650px;
+    width: 100%;
+    max-width: 680px;
     margin: 0 auto;
-    background-color: white;
-    padding: 30px;
-    border-radius: 14px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
+/* Cabeçalho */
+
 .cabecalho {
-    text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
 }
 
 .cabecalho h1 {
-    color: #2563eb;
-    margin-bottom: 10px;
+    font-size: clamp(28px, 5vw, 38px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-bottom: 12px;
 }
 
 .cabecalho p {
-    color: #64748b;
-    line-height: 1.5;
+    color: var(--texto-secundario);
+    font-size: 15px;
+    line-height: 1.7;
 }
 
-.adicionar-tarefa {
+/* Área de adicionar tarefa */
+
+.adicionar.tarefa {
     display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
+    gap: 12px;
+    padding: 12px;
+    margin-bottom: 36px;
+    background: var(--cartao);
+    border: 1px solid var(--borda);
+    border-radius: 16px;
+    box-shadow: 0 15px 40px #00000020;
 }
 
 #campo-tarefa {
     flex: 1;
     min-width: 0;
-    padding: 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-button {
+    padding: 13px 12px;
+    background: transparent;
+    color: var(--texto);
     border: none;
-    border-radius: 8px;
-    background-color: #2563eb;
-    color: white;
-    padding: 12px 18px;
-    font-size: 15px;
-    cursor: pointer;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
 }
 
-button:hover {
-    background-color: #1d4ed8;
+#campo-tarefa::placeholder {
+    color: #777d92;
+}
+
+#campo-tarefa:focus-visible {
+    outline: 2px solid var(--roxo);
+    outline-offset: -2px;
+    border-radius: 6px;
+}
+
+#botao-adicionar {
+    padding: 13px 19px;
+    background: var(--roxo);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+#botao-adicionar:hover {
+    background: var(--roxo-hover);
+    transform: translateY(-1px);
+}
+
+/* Lista */
+
+.lista-tarefas {
+    padding: 25px;
+    background: var(--cartao);
+    border: 1px solid var(--borda);
+    border-radius: 18px;
 }
 
 .lista-tarefas h2 {
-    margin-bottom: 15px;
-    font-size: 20px;
+    margin-bottom: 20px;
+    font-size: 17px;
+    font-weight: 700;
 }
 
 #lista-tarefas {
@@ -76,53 +128,93 @@ button:hover {
 }
 
 #lista-tarefas li {
-    padding: 14px;
-    margin-bottom: 10px;
-    background-color: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-}
-
-.tarefa-vazia {
-    color: #64748b;
-    text-align: center;
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 20px;
-    }
-
-    .adicionar-tarefa {
-        flex-direction: column;
-    }
-}
-
-/* Organiza os elementos de cada tarefa */
-#lista-tarefas li:not(.tarefa-vazia) {
     display: flex;
     align-items: center;
     gap: 12px;
+    padding: 17px 0;
+    border-bottom: 1px solid var(--borda);
 }
 
-/* O texto ocupa o espaço disponível */
+#lista-tarefas li:last-child {
+    border-bottom: none;
+}
+
 #lista-tarefas li span {
     flex: 1;
+    min-width: 0;
+    color: var(--texto);
+    font-size: 14px;
+    line-height: 1.6;
     overflow-wrap: anywhere;
 }
 
-/* Aparência de uma tarefa concluída */
 #lista-tarefas li.concluida span {
+    color: var(--texto-secundario);
     text-decoration: line-through;
-    color: #94a3b8;
 }
 
-/* Botão de excluir */
-.botao-excluir {
-    background-color: #dc2626;
-    padding: 8px 12px;
+#lista-tarefas li.tarefa-vazia {
+    justify-content: center;
+    padding: 35px 10px;
+    color: var(--texto-secundario);
+    font-size: 14px;
+    text-align: center;
 }
 
-.botao-excluir:hover {
-    background-color: #b91c1c;
+/* Botões de ação criados pelo JavaScript */
+
+#lista-tarefas li button {
+    flex-shrink: 0;
+    padding: 8px 11px;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    background: var(--cartao-hover);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#lista-tarefas li button:hover {
+    border-color: var(--roxo);
+}
+
+#lista-tarefas li button:first-of-type {
+    color: var(--verde);
+}
+
+#lista-tarefas li button:last-of-type {
+    color: var(--vermelho);
+}
+
+/* Celulares */
+
+@media (max-width: 480px) {
+    body {
+        padding: 45px 15px;
+    }
+
+    .adicionar.tarefa {
+        gap: 5px;
+        padding: 8px;
+    }
+
+    #campo-tarefa {
+        font-size: 13px;
+    }
+
+    #botao-adicionar {
+        padding: 12px;
+        font-size: 12px;
+    }
+
+    .lista-tarefas {
+        padding: 18px;
+    }
+
+    #lista-tarefas li {
+        flex-wrap: wrap;
+    }
 }
