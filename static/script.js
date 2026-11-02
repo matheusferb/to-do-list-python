@@ -5,6 +5,7 @@ const botaoAdicionar = document.getElementById("botao-adicionar");
 const listaTarefas = document.getElementById("lista-tarefas");
 const campoPesquisa = document.getElementById("campo-pesquisa");
 const campoPrioridade = document.getElementById("campo-prioridade");
+const campoData = document.getElementById("campo-data");
 
 // Elementos do progresso
 const contadorTotal = document.getElementById("contador-total");
@@ -127,7 +128,9 @@ function criarElementoTarefa(tarefa) {
 
     texto.textContent = tarefa.texto;
 
+    //Prioridade
     const etiquetaPrioridade = document.createElement("span");
+    
 
     etiquetaPrioridade.textContent =
         "Prioridade: " + tarefa.prioridade;
@@ -136,6 +139,35 @@ function criarElementoTarefa(tarefa) {
         "prioridade",
         tarefa.prioridade
     );
+
+    // Data de vencimento
+    const etiquetaData = document.createElement("span");
+
+    if (tarefa.data_vencimento) {
+        const partesData = tarefa.data_vencimento.split("-");
+
+        etiquetaData.textContent =
+            "Vence em: " + partesData[2] + "/" + partesData[1] + "/" + partesData[0];
+
+        etiquetaData.classList.add("data-vencimento");
+
+        // Verificar se a tarefa está atrasada
+        const hoje = new Date();
+        const hojeFormatado =
+            hoje.getFullYear() + "-" +
+            String(hoje.getMonth() + 1).padStart(2, "0") + "-" +
+            String(hoje.getDate()).padStart(2, "0");
+
+        if (
+            tarefa.data_vencimento < hojeFormatado &&
+            !tarefa.concluida
+        ) {
+            etiquetaData.classList.add("atrasada");
+            etiquetaData.textContent =
+                "Atrasada: " + partesData[2] + "/" + partesData[1] + "/" + partesData[0];
+        }
+    }
+
 
     const botaoExcluir = document.createElement("button");
 
@@ -270,6 +302,12 @@ botaoEditar.addEventListener("click", async function () {
     item.appendChild(checkbox);
     item.appendChild(texto);
     item.appendChild(etiquetaPrioridade);
+
+    if(tarefa.data_vencimento) {
+        item.appendChild(etiquetaData);
+    }
+
+
     item.appendChild(botaoEditar);
     item.appendChild(botaoExcluir);
 
@@ -281,6 +319,7 @@ botaoEditar.addEventListener("click", async function () {
 async function adicionarTarefa() {
     const texto = campoTarefa.value.trim();
     const prioridade = campoPrioridade.value;
+    const dataVencimento = campoData.value;
 
     if (texto === "") {
         alert("Digite uma tarefa antes de adicionar!");
@@ -295,7 +334,8 @@ async function adicionarTarefa() {
             },
             body: JSON.stringify({ 
                 texto: texto,
-                prioridade: prioridade
+                prioridade: prioridade,
+                data_vencimento: dataVencimento
             })
         });
 
@@ -309,6 +349,7 @@ async function adicionarTarefa() {
 
         campoTarefa.value = "";
         campoPrioridade.value = "media";
+        campoData.value = "";
         campoTarefa.focus();
 
         atualizarTela();
