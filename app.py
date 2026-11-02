@@ -39,6 +39,12 @@ def criar_banco():
                 ADD COLUMN prioridade TEXT NOT NULL DEFAULT 'media'
             """)
 
+        if "data_vencimento" not in nomes_colunas:
+            conexao.execute("""
+                ALTER TABLE tarefas
+                ADD COLUMN data_vencimento TEXT
+            """)
+
 
 # Página principal
 @app.route("/")
@@ -79,13 +85,20 @@ def adicionar_tarefa():
     with conectar_banco() as conexao:
   
           prioridade = dados.get("prioridade", "media")
-  
+          data_vencimento = dados.get("data_vencimento", "")
+
+          if data_vencimento and not isinstance(data_vencimento, str):
+              return jsonify({"erro": "Data de vencimento inválida."}), 400
+
           if prioridade not in ["baixa", "media", "alta"]:
               return jsonify({"erro": "Prioridade inválida."}), 400
   
           cursor = conexao.execute(
-              "INSERT INTO tarefas (texto,prioridade) VALUES (?, ?)",
-              (texto.strip(),prioridade)
+              """
+              INSERT INTO tarefas (texto, prioridade, data_vencimento)
+              VALUES (?, ?, ?)
+              """,
+            (texto.strip(), prioridade, data_vencimento)
           )
   
           tarefa_id = cursor.lastrowid
@@ -94,7 +107,8 @@ def adicionar_tarefa():
         "id": tarefa_id,
         "texto": texto.strip(),
         "concluida": False,
-        "prioridade": prioridade
+        "prioridade": prioridade,
+        "data_vencimento": data_vencimento
     }),201
 
 

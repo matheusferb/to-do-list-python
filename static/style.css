@@ -209,7 +209,7 @@ body {
     border-bottom: none;
 }
 
-#lista-tarefas li span {
+#lista-tarefas li > span:not(.prioridade) {
     flex: 1;
     min-width: 0;
     color: var(--texto);
@@ -218,7 +218,7 @@ body {
     overflow-wrap: anywhere;
 }
 
-#lista-tarefas li.concluida span {
+#lista-tarefas li.concluida > span:not(.prioridade) {
     color: var(--texto-secundario);
     text-decoration: line-through;
 }
@@ -374,4 +374,30 @@ body {
         flex: 1;
         padding: 9px 7px;
     }
+
+    /* Etiquetas de prioridade */
+.prioridade {
+    flex: 0 0 auto;
+    padding: 5px 9px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.prioridade.baixa {
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.12);
+}
+
+.prioridade.media {
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.12);
+}
+
+.prioridade.alta {
+    color: #fb7185;
+    background: rgba(251, 113, 133, 0.12);
+}
+
 }
