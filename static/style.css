@@ -1,7 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* Variáveis de cores */
+/* Identidade visual */
 :root {
     --fundo: #0d0f17;
     --cartao: #151824;
@@ -9,8 +9,10 @@
     --borda: #292d3e;
     --texto: #f1f2f9;
     --texto-secundario: #9298ad;
-    --roxo: #8b7cff;
-    --roxo-hover: #7565f5;
+
+    --destaque: #e5484d;
+    --destaque-hover: #c9363e;
+
     --verde: #4ade80;
     --vermelho: #fb7185;
 }
@@ -26,7 +28,7 @@ body {
     min-height: 100vh;
     padding: 80px 20px;
     background:
-        radial-gradient(ellipse at 50% 0%, #242044 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 0%, #351b25 0%, transparent 50%),
         var(--fundo);
     color: var(--texto);
     font-family: 'Inter', Arial, sans-serif;
@@ -84,9 +86,10 @@ body {
     color: #777d92;
 }
 
+/* Botão adicionar */
 #botao-adicionar {
-    padding: 13px 19px;
-    background: var(--roxo);
+    padding: 13px 20px;
+    background: var(--destaque);
     color: #fff;
     border: none;
     border-radius: 10px;
@@ -94,21 +97,24 @@ body {
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
+    transition: 0.2s ease;
+    box-shadow: 0 4px 14px #e5484d30;
 }
 
 #botao-adicionar:hover {
-    background: var(--roxo-hover);
-    transform: translateY(-1px);
+    background: var(--destaque-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px #e5484d45;
 }
 
 /* Painel de progresso */
 .painel-progresso {
-    background: var(--cartao);
+    background: linear-gradient(145deg, #191c2a, #131622);
     border: 1px solid var(--borda);
-    border-radius: 18px;
-    padding: 24px;
+    border-radius: 20px;
+    padding: 26px;
     margin-bottom: 25px;
+    box-shadow: 0 12px 35px #00000030;
 }
 
 .progresso-cabecalho {
@@ -123,7 +129,7 @@ body {
 }
 
 #texto-progresso {
-    color: var(--roxo);
+    color: var(--destaque);
     font-weight: 700;
     font-size: 18px;
 }
@@ -141,9 +147,10 @@ body {
 #progresso-preenchido {
     width: 0%;
     height: 100%;
-    background: linear-gradient(90deg, #7565f5, #a99cff);
+    background: linear-gradient(90deg, #c9363e, #ff5964);
     border-radius: 20px;
     transition: width 0.4s ease;
+    box-shadow: 0 0 12px #e5484d60;
 }
 
 /* Contadores */
@@ -176,9 +183,10 @@ body {
 /* Lista de tarefas */
 .lista-tarefas {
     padding: 25px;
-    background: var(--cartao);
+    background: linear-gradient(145deg, #191c2a, #131622);
     border: 1px solid var(--borda);
-    border-radius: 18px;
+    border-radius: 20px;
+    box-shadow: 0 12px 35px #00000030;
 }
 
 .lista-tarefas h2 {
@@ -286,7 +294,8 @@ body {
 }
 
 #lista-tarefas li button:hover {
-    border-color: var(--roxo);
+    border-color: var(--destaque);
+    transform: translateY(-1px);
 }
 
 #lista-tarefas li button:first-of-type {
@@ -317,8 +326,8 @@ body {
 }
 
 #campo-pesquisa:focus {
-    border-color: var(--roxo);
-    box-shadow: 0 0 0 3px rgba(117, 101, 245, 0.15);
+    border-color: var(--destaque);
+    box-shadow: 0 0 0 3px #e5484d20;
 }
 
 /* Filtros */
@@ -349,8 +358,33 @@ body {
 }
 
 .filtro.ativo {
-    background: var(--roxo);
+    background: var(--destaque);
     color: white;
+    border-color: var(--destaque);
+    box-shadow: 0 3px 12px #e5484d30;
+}
+
+/* Campos de seleção */
+#campo-prioridade,
+#campo-data {
+    padding: 11px;
+    background: var(--cartao-hover);
+    color: var(--texto);
+    border: 1px solid var(--borda);
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+}
+
+#campo-prioridade:focus,
+#campo-data:focus {
+    border-color: var(--destaque);
+}
+
+#campo-data {
+    color-scheme: dark;
 }
 
 /* Responsividade para celulares */
