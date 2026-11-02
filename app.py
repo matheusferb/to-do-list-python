@@ -67,7 +67,8 @@ def listar_tarefas():
             "id": linha["id"],
             "texto": linha["texto"],
             "concluida": bool(linha["concluida"]),
-            "prioridade": linha["prioridade"]
+            "prioridade": linha["prioridade"],
+            "data_vencimento": linha["data_vencimento"]
         })
 
     return jsonify(tarefas)
@@ -132,6 +133,10 @@ def atualizar_tarefa(tarefa_id):
         texto = dados.get("texto", linha["texto"])
         concluida = dados.get("concluida", bool(linha["concluida"]))
         prioridade = dados.get("prioridade", linha["prioridade"])
+        data_vencimento = dados.get(
+            "data_vencimento",
+            linha["data_vencimento"] or ""
+        )
 
         # Validar o texto
         if not isinstance(texto, str) or not texto.strip():
@@ -143,6 +148,9 @@ def atualizar_tarefa(tarefa_id):
 
         if prioridade not in ["baixa", "media", "alta"]:
             return jsonify({"erro": "Prioridade inválida."}), 400
+
+        if data_vencimento and not isinstance(data_vencimento, str):
+            return jsonify({"erro": "Data de vencimento inválida."}), 400
 
         # Atualizar no banco de dados
         conexao.execute(
@@ -158,7 +166,8 @@ def atualizar_tarefa(tarefa_id):
         "id": tarefa_id,
         "texto": texto.strip(),
         "concluida": concluida,
-        "prioridade": prioridade
+        "prioridade": prioridade,
+        "data_vencimento": data_vencimento
     })
 
 
